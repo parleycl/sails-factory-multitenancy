@@ -6,6 +6,7 @@
 //==============================================================================
 
 var Sails = require("sails");
+var sails;
 
 before(function(done) {
   Sails.lift({
@@ -17,7 +18,8 @@ before(function(done) {
     },
     connections: {
       default: {
-        adapter: "sails-memory"
+        adapter: "sails-disk",
+        inMemoryOnly: true
       }
     },
     models: {
@@ -27,14 +29,24 @@ before(function(done) {
     session: {
       secret: "s.e.c.r.e.t"
     },
+    multitenancy: function(req) {
+      return new Promise(async (resolve) => {
+        // Return a Datasource object
+        resolve(new Datasource({
+          identity: 'test',
+          adapter: 'sails-disk'
+        }));
+      });
+    },
     hooks: {
       grunt: false,
       session: false,
       sockets: false,
       pubsub: false
     }
-  }, function(err, sails) {
-    done && done(err, sails);
+  }, function(err, sailsInstance) {
+    global.sails = sailsInstance;
+    return done && done(err, sailsInstance);
   });
 });
 

@@ -1,11 +1,10 @@
 require("node-test-helper");
-
+const _ = require("@sailshq/lodash");
 const async = require("async");
 const path = require("upath");
 const Self = require(path.join(process.cwd(), "lib", "factory"));
 
 describe(TEST_NAME, function() {
-
   describe("constructor", function() {
     it("should return instance given a name and a model name", function() {
       const obj = new Self("sample", "sampleModel");
@@ -103,16 +102,16 @@ describe(TEST_NAME, function() {
         .attr("description", "my description");
     });
 
-    it("should return a model instance of a defined factory", function(done) {
-      Self.create("sample", function(sample) {
+    it("should return a model instance of a defined factory", async function(done) {
+      await Self.create("sample", function(sample) {
         expect(sample).to.have.property("id");
         expect(sample).to.have.property("title", "my title");
         expect(sample).to.have.property("description", "my description");
         done();
       });
     });
-    it("should return a model instance of a defined factory with overridden attributes", function(done) {
-      Self.create("sample", {title: "hello"}, function(sample) {
+    it("should return a model instance of a defined factory with overridden attributes", async function(done) {
+      await Self.create("sample", {title: "hello"}, function(sample) {
         expect(sample).to.have.property("id");
         expect(sample).to.have.property("title", "hello");
         expect(sample).to.have.property("description", "my description");
@@ -147,8 +146,8 @@ describe(TEST_NAME, function() {
             done();
           });
         },
-        function(done) {
-          Self.create("sample", function(sample) {
+        async function(done) {
+          await Self.create("sample", function(sample) {
             expect(sample).to.have.property("id", 3);
             expect(sample).to.have.property("title", "title-6");
             done();
@@ -168,8 +167,8 @@ describe(TEST_NAME, function() {
             done();
           });
         },
-        function(done) {
-          Self.create("sample2", function(sample) {
+        async function(done) {
+          await Self.create("sample2", function(sample) {
             expect(sample).to.have.property("id", 6);
             expect(sample).to.have.property("title", "title-12");
             done();
@@ -188,20 +187,20 @@ describe(TEST_NAME, function() {
             done();
           });
         },
-        function(done) {
-          Self.create("sample", {id: 999}, function(sample) {
+        async function(done) {
+          await Self.create("sample", {id: 999}, function(sample) {
             expect(sample).to.have.property("id", 999);
             done();
           });
         },
-        function(done) {
+        async function(done) {
           Self.build("sample2", {id: 88}, function(sample) {
             expect(sample).to.have.property("id", 88);
             done();
           });
         },
-        function(done) {
-          Self.create("sample2", {id: 888}, function(sample) {
+        async function(done) {
+          await Self.create("sample2", {id: 888}, function(sample) {
             expect(sample).to.have.property("id", 888);
             done();
           });

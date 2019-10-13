@@ -7,10 +7,12 @@
  */
 
 module.exports = {
-
   attributes: {
-    title: "string",
-    description: "string"
+    id: { 
+      type: 'number', 
+      autoIncrement: true 
+    },
+    title: 'string',
+    description: 'string'
   }
-
 };
