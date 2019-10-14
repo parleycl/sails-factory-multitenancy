@@ -1,32 +1,43 @@
 {
-  "name": "sails-factory",
-  "version": "0.4.0",
-  "description": "Simple model factory for Sails.js. Inspired by factory_girl and rosie.",
+  "name": "sails-multitenancy-factory",
+  "version": "0.6.2",
+  "description": "Simple model factory for Sails.js 1.X with multitenancy features. Based on sails-factory.",
   "main": "index.js",
   "scripts": {
     "test": "make test"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/zand3rs/sails-factory.git"
+    "url": "https://github.com/parleycl/sails-multitenancy-factory"
   },
   "keywords": [
     "sails-factory",
-    "sails_factory",
-    "sails",
+    "sails-hook-multitenant",
+    "multitenancy",
     "factory",
-    "test"
+    "testing"
   ],
   "author": {
-    "name": "Alexander Magtipon",
-    "email": "zand3rs@gmail.com"
+    "name": "Parley Company",
+    "email": "hola@parley.cl"
   },
-  "license": "ISC",
+  "contributors": [
+    {
+      "name": "Angelo Calvo Alfaro",
+      "email": "angelo.calvoa@gmail.com",
+      "url": "http://www.parley.cl"
+    },
+    {
+      
+    }
+  ],
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/zand3rs/sails-factory/issues"
   },
   "dependencies": {
-    "lodash": "^4.17.5",
+    "@sailshq/lodash": "^3.10.3",
+    "optional-require": "^1.0.0",
     "upath": "^1.0.4"
   },
   "devDependencies": {
@@ -35,7 +46,10 @@
     "grunt": "^0.4.5",
     "mocha": "^2.3.3",
     "node-test-helper": "^1.0.0",
-    "sails": "^0.11.3",
-    "sails-memory": "^0.10.5"
+    "sails": "^1.0.0-46",
+    "sails-hook-orm": "^2.1.1",
+    "waterline": "^0.13.4",
+    "sails-disk": "^1.1.2",
+    "sails-hook-multitenant": "^0.6.2"
   }
 }
