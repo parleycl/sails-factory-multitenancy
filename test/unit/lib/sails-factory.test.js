@@ -164,99 +164,198 @@ describe(TEST_NAME, function() {
     });
   });
 
-  describe('auto increment attributes', function() {
-    before(function() {
-      Self.define('sample2')
-        .attr('id', 0, { auto_increment: 1 })
-        .attr('title', 'title-%d', { auto_increment: 2 })
-        .attr('numero', function() {
-          return Math.random() * 100;
-        })
-        .attr('description', 'using sequence')
-        .parent('sample');
-    });
+  describe('Auto increment attributes', function() {
+    describe('With numeric auto increment', function() {
+      before(function() {
+        Self.define('sample2')
+          .attr('id', 0, { auto_increment: 1 })
+          .attr('title', 'title-%d', { auto_increment: 2 })
+          .attr('numero', function() {
+            return Math.random() * 100;
+          })
+          .attr('description', 'using sequence')
+          .parent('sample');
+      });
 
-    it('should be shared among children', function(done) {
-      let id;
-      async.series([
-        async function(done) {
-          await Self.create('sample2', function(sample) {
-            id = sample.id;
-            expect(sample).to.have.property('id', id++);
-            expect(sample).to.have.property('title', 'title-2');
-            expect(sample).to.have.property('numero');
-            expect(sample.numero).to.be.within(0,100);
-            done();
-          });
-        },
-        async function(done) {
-          await Self.create('sample', function(sample) {
-            expect(sample).to.have.property('id', id++);
-            expect(sample).to.have.property('foo', 'bar');
-            done();
-          });
-        },
-        async function(done) {
-          await Self.create('sample2', function(sample) {
-            expect(sample).to.have.property('id', id++);
-            expect(sample).to.have.property('title', 'title-4');
-            done();
-          });
-        },
-        function(done) {
-          Self.build('sample2', function(sample) {
-            expect(sample).to.have.property('id', id++);
-            expect(sample).to.have.property('title', 'title-6');
-            done();
-          });
-        },
-        function(done) {
-          Self.build('sample', function(sample) {
-            expect(sample).to.have.property('id', id++);
-            expect(sample).to.have.property('foo', 'bar');
-            done();
-          });
-        },
-        async function(done) {
-          await Self.create('sample2', function(sample) {
-            expect(sample).to.have.property('id', id++);
-            expect(sample).to.have.property('title', 'title-8');
-            done();
-          });
-        }
-      ], function(err) {
-        done(err);
+      it('should be shared among children', function(done) {
+        let id;
+        async.series([
+          async function(done) {
+            await Self.create('sample2', function(sample) {
+              id = sample.id;
+              expect(sample).to.have.property('id', id++);
+              expect(sample).to.have.property('title', 'title-2');
+              expect(sample).to.have.property('numero');
+              expect(sample.numero).to.be.within(0,100);
+              done();
+            });
+          },
+          async function(done) {
+            await Self.create('sample', function(sample) {
+              expect(sample).to.have.property('id', id++);
+              expect(sample).to.have.property('foo', 'bar');
+              done();
+            });
+          },
+          async function(done) {
+            await Self.create('sample2', function(sample) {
+              expect(sample).to.have.property('id', id++);
+              expect(sample).to.have.property('title', 'title-4');
+              done();
+            });
+          },
+          function(done) {
+            Self.build('sample2', function(sample) {
+              expect(sample).to.have.property('id', id++);
+              expect(sample).to.have.property('title', 'title-6');
+              done();
+            });
+          },
+          function(done) {
+            Self.build('sample', function(sample) {
+              expect(sample).to.have.property('id', id++);
+              expect(sample).to.have.property('foo', 'bar');
+              done();
+            });
+          },
+          async function(done) {
+            await Self.create('sample2', function(sample) {
+              expect(sample).to.have.property('id', id++);
+              expect(sample).to.have.property('title', 'title-8');
+              done();
+            });
+          }
+        ], function(err) {
+          done(err);
+        });
+      });
+
+      it('can be overridden', function(done) {
+        async.series([
+          function(done) {
+            Self.build('sample', {id: 99}, function(sample) {
+              expect(sample).to.have.property('id', 99);
+              done();
+            });
+          },
+          async function(done) {
+            await Self.create('sample', {id: 999}, function(sample) {
+              expect(sample).to.have.property('id', 999);
+              done();
+            });
+          },
+          async function(done) {
+            Self.build('sample2', {id: 88}, function(sample) {
+              expect(sample).to.have.property('id', 88);
+              done();
+            });
+          },
+          async function(done) {
+            await Self.create('sample2', {id: 888}, function(sample) {
+              expect(sample).to.have.property('id', 888);
+              done();
+            });
+          }
+        ], function(err) {
+          done(err);
+        });
       });
     });
 
-    it('can be overridden', function(done) {
-      async.series([
-        function(done) {
-          Self.build('sample', {id: 99}, function(sample) {
-            expect(sample).to.have.property('id', 99);
-            done();
-          });
-        },
-        async function(done) {
-          await Self.create('sample', {id: 999}, function(sample) {
-            expect(sample).to.have.property('id', 999);
-            done();
-          });
-        },
-        async function(done) {
-          Self.build('sample2', {id: 88}, function(sample) {
-            expect(sample).to.have.property('id', 88);
-            done();
-          });
-        },
-        async function(done) {
-          await Self.create('sample2', {id: 888}, function(sample) {
-            expect(sample).to.have.property('id', 888);
-            done();
-          });
-        }
-      ], function(err) {
-        done(err);
+    describe('With boolean auto increment', function() {
+      before(function() {
+        Self.define('sample2')
+          .attr('id', 0, { auto_increment: true })
+          .attr('title', 'title-%d', { auto_increment: true })
+          .attr('numero', function() {
+            return Math.random() * 100;
+          })
+          .attr('description', 'using sequence')
+          .parent('sample');
+        });
+      
+      it('Should be shared among children', function(done) {
+        let id;
+        async.series([
+          async function(done) {
+            await Self.create('sample2', function(sample) {
+              id = sample.id;
+              expect(sample).to.have.property('id', id++);
+              expect(sample).to.have.property('title', 'title-1');
+              expect(sample).to.have.property('numero');
+              expect(sample.numero).to.be.within(0,100);
+              done();
+            });
+          },
+          async function(done) {
+            await Self.create('sample', function(sample) {
+              expect(sample).to.have.property('id', id++);
+              expect(sample).to.have.property('foo', 'bar');
+              done();
+            });
+          },
+          async function(done) {
+            await Self.create('sample2', function(sample) {
+              expect(sample).to.have.property('id', id++);
+              expect(sample).to.have.property('title', 'title-2');
+              done();
+            });
+          },
+          function(done) {
+            Self.build('sample2', function(sample) {
+              expect(sample).to.have.property('id', id++);
+              expect(sample).to.have.property('title', 'title-3');
+              done();
+            });
+          },
+          function(done) {
+            Self.build('sample', function(sample) {
+              expect(sample).to.have.property('id', id++);
+              expect(sample).to.have.property('foo', 'bar');
+              done();
+            });
+          },
+          async function(done) {
+            await Self.create('sample2', function(sample) {
+              expect(sample).to.have.property('id', id++);
+              expect(sample).to.have.property('title', 'title-4');
+              done();
+            });
+          }
+        ], function(err) {
+          done(err);
+        });
+      });
+
+      it('can be overridden', function(done) {
+        async.series([
+          function(done) {
+            Self.build('sample', {id: 991}, function(sample) {
+              expect(sample).to.have.property('id', 991);
+              done();
+            });
+          },
+          async function(done) {
+            await Self.create('sample', {id: 9991}, function(sample) {
+              expect(sample).to.have.property('id', 9991);
+              done();
+            });
+          },
+          async function(done) {
+            Self.build('sample2', {id: 881}, function(sample) {
+              expect(sample).to.have.property('id', 881);
+              done();
+            });
+          },
+          async function(done) {
+            await Self.create('sample2', {id: 8881}, function(sample) {
+              expect(sample).to.have.property('id', 8881);
+              done();
+            });
+          }
+        ], function(err) {
+          done(err);
+        });
       });
     });
   });
