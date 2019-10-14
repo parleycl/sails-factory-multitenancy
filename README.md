@@ -191,5 +191,17 @@ To run test of this library, please follow next command
 
 ```bash
 npm test
+...
+33 passing
 ```
 
+## 9. Contributors
+
+This project is based on [sails-factory](https://github.com/zand3rs/sails-factory) project wrote by Alexander Magtipon.
+
+**Knownledge is power, share the Knownledge.**
+
+## 10. License
+This project is develop by Parley for free use by the community, under MIT license. 
+
+Made with ❤ in Chile
