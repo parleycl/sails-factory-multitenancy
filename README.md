@@ -7,7 +7,7 @@ This project is inspired on Factory-girl and other factory testing tools.
 ## Installation
 
 ```bash    
-npm install sails-multitenancy-factory --save
+npm install sails-factory-multitenant --save
 ```
 
 ## Usage
