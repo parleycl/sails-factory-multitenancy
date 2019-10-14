@@ -17,7 +17,7 @@ npm install sails-factory-multitenant --save
 Define a factory by giving it a name and an optional model name. The factory name will be the default model name if model name is not provided.
 
 ```js
-  var factory = require("sails-factory");
+  var factory = require("sails-factory-multitenant");
 
   factory.define("user")
     .attr("first_name", "First Name")
@@ -165,7 +165,7 @@ Calling .load() without parameter will try to load factory definitions from test
     }, function(err, sails) {
       if (sails) {
         //-- load factory definition files from test/factories
-        require("sails-factory").load();
+        require("sails-factory-multitenant").load();
       }
       done(err);
     });

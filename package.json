@@ -1,6 +1,6 @@
 {
   "name": "sails-factory-multitenant",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "description": "Simple model factory for Sails.js 1.X with multitenancy features. Based on sails-factory and inspired on Factory-Girl.",
   "main": "index.js",
   "scripts": {
