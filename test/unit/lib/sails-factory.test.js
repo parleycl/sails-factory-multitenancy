@@ -169,8 +169,11 @@ describe(TEST_NAME, function() {
       Self.define('sample2')
         .attr('id', 0, { auto_increment: 1 })
         .attr('title', 'title-%d', { auto_increment: 2 })
+        .attr('numero', function() {
+          return Math.random() * 100;
+        })
         .attr('description', 'using sequence')
-        .setParent('sample');
+        .parent('sample');
     });
 
     it('should be shared among children', function(done) {
@@ -181,6 +184,8 @@ describe(TEST_NAME, function() {
             id = sample.id;
             expect(sample).to.have.property('id', id++);
             expect(sample).to.have.property('title', 'title-2');
+            expect(sample).to.have.property('numero');
+            expect(sample.numero).to.be.within(0,100);
             done();
           });
         },
