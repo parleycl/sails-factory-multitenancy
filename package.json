@@ -26,9 +26,12 @@
       "name": "Angelo Calvo Alfaro",
       "email": "angelo.calvoa@gmail.com",
       "url": "http://www.parley.cl"
+    },
+    {
+      
     }
   ],
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/zand3rs/sails-factory/issues"
   },
