@@ -12,7 +12,7 @@ module.exports = {
       type: 'number', 
       autoIncrement: true 
     },
-    title: 'string',
-    description: 'string'
+    foo: 'string',
+    hello: 'string'
   }
 };
