@@ -92,6 +92,13 @@ Attributes can have an auto_increment option. By default, sequence will incremen
     .attr("id", 0, {auto_increment: true})
     .attr("first_name", "First Name - ", {auto_increment: 5});
 
+  // OR with %d number character template.
+
+  factory.define("user")
+    .attr("id", 0, {auto_increment: true})
+    .attr("first_name", "First Name - %d", {auto_increment: 5});
+
+
   factory.define("other_user").parent("user");
 
   factory.build("user", function(user) {
@@ -177,3 +184,12 @@ To get the total number of loaded factory files:
     // count is the total number of loaded files
   });
 ```
+
+### Test
+
+To run test of this library, please follow next command
+
+```bash
+npm test
+```
+
