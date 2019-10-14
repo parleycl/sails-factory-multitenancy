@@ -1,5 +1,4 @@
-sails-multitenancy-factory
-=============
+![logo](https://raw.githubusercontent.com/parleycl/sails-factory-multitenancy/master/assets/logo.png)
 
 Sails Multitenancy Factory is a simple model factory for Sails.js 1.X with multitenancy features. This project is based on [sails-factory](https://github.com/zand3rs/sails-factory). This project use [sails-hook-multitenancy](https://github.com/parleycl/sails-hook-multitenant) to provide with multitenancy features.
 
