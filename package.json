@@ -1,7 +1,7 @@
 {
-  "name": "sails-multitenancy-factory",
+  "name": "sails-factory-multitenant",
   "version": "0.6.2",
-  "description": "Simple model factory for Sails.js 1.X with multitenancy features. Based on sails-factory.",
+  "description": "Simple model factory for Sails.js 1.X with multitenancy features. Based on sails-factory and inspired on Factory-Girl.",
   "main": "index.js",
   "scripts": {
     "test": "make test"
@@ -28,13 +28,11 @@
       "url": "http://www.parley.cl"
     },
     {
-      
+      "name": "Alexander Magtipon",
+      "email": "zand3rs@gmail.com"
     }
   ],
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/zand3rs/sails-factory/issues"
-  },
   "dependencies": {
     "@sailshq/lodash": "^3.10.3",
     "optional-require": "^1.0.0",
